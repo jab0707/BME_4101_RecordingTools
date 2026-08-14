@@ -1,0 +1,92 @@
+% Author: Jake Bergquist
+%Purpose: This document is meant to show some basics of loading and
+%visualizing the types of data you may record in your labs for BME 4101
+clear
+clc
+close all
+%% Example Data 1
+%We will work with the data in the exampleData folder
+
+%Starting with example data 1, this data has recordings from AI0 and AI1 as
+%well as the time column. We can first examine the headder, which are the
+%first five lines
+fid = fopen("exampleData/exampleData1.txt", 'r');
+numLines = 5; % Number of header lines to read
+headerLines = cell(numLines, 1);
+
+for i = 1:numLines
+    %Here we just display them so we can read
+    display(fgetl(fid));
+end
+%don't forget to close the file
+fclose(fid);
+
+%Now we want to load the rest of the data. There are many ways to do this,
+%but an easy one is this:
+data1 = readmatrix("exampleData/exampleData1.txt","headerlines",5);
+
+%The data comes in as seen in the channels part of the header,
+%for this one it is: t, AI0, AI1
+%so column 1 is time, and columns 2 and 3 are AIO and AI1
+t = data1(:,1);
+ai0_signal = data1(:,2);
+ai1_signal = data1(:,3);
+
+%Now we can plot it
+figure(1);
+clf();
+hold on;
+plot(t,ai0_signal,'k','LineWidth',2);
+plot(t,ai1_signal,'r','LineWidth',2);
+ylabel("Voltage (V)")
+xlabel("Time (s)")
+title("Example Data 1")
+legend({"AI0","AI1"})
+fontsize(20,"points")
+
+%% Example Data 2
+%This next data does not have the time column, so we need to use the
+%information in the header to make our own time vector
+
+%Now we will examine the headder to see the sampling frequency, and use
+%that to determine the time vector for plotting
+%Again the header is the first five lines
+fid = fopen("exampleData/exampleData2.txt", 'r');
+numLines = 5; % Number of header lines to read
+headerLines = cell(numLines, 1);
+
+for i = 1:numLines
+    %Here we just display them so we can read
+    display(fgetl(fid));
+end
+%don't forget to close the file
+fclose(fid);
+
+%Set the sampling frequency based on what the header said
+fs = 500;
+
+%Now load the data as before
+data2 = readmatrix("exampleData/exampleData2.txt","headerlines",5);
+
+%Use the sampling frequency to find dt, then use dt and the number of
+%samples to figure out the time vector.
+dt = 1/fs;
+n =
+
+%The data comes in as seen in the channels part of the header,
+%for this one it is: t, AI0, AI1
+%so column 1 is time, and columns 2 and 3 are AIO and AI1
+ai0_signal = data2(:,1);
+ai2_signal = data2(:,1);
+
+%Now we can plot it
+figure(1);
+clf();
+hold on;
+plot(t,ai0_signal,'k','LineWidth',2);
+plot(t,ai2_signal,'r','LineWidth',2);
+ylabel("Voltage (V)")
+xlabel("Time (s)")
+title("Example Data 1")
+legend({"AI0","AI2"})
+fontsize(20,"points")
