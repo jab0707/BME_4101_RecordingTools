@@ -1,5 +1,6 @@
 # general avoids
 .DS_Store
+*.asv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
